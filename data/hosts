@@ -1,0 +1,15 @@
+[win]
+# Address of a node and its Windows password
+# <node_ip> ansible_password=<password>
+52.14.55.110 ansible_password='fGF!P@gg7VzFB$fQTr=.(mwyZtTpdc(G'
+
+[win:vars]
+# Windows username, typically 'Administrator'
+ansible_user=Administrator
+# Address of the OpenShift cluster e.g. "foo.fah.com". This should not include "https://api-" or a port
+cluster_address=sgao-winc.qe.devcluster.openshift.com
+
+ansible_connection=winrm
+ansible_ssh_port=5986
+# Required if you do not wish to set up a certificate
+ansible_winrm_server_cert_validation=ignore
