@@ -1,34 +1,32 @@
-# Enable curl/ping
-# apt-get update && apt-get install -y --no-install-recommends curl iputils-ping && rm -rf /var/lib/apt/lists/*
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-nginx
+  name: linux-webserver
   labels:
-    run: my-nginx
+    run: linux-webserver
 spec:
   ports:
   - port: 80
     protocol: TCP
   selector:
-    run: my-nginx
+    run: linux-webserver
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-nginx
+  name: linux-webserver
 spec:
   selector:
     matchLabels:
-      run: my-nginx
+      run: linux-webserver
   replicas: 1
   template:
     metadata:
       labels:
-        run: my-nginx
+        run: linux-webserver
     spec:
       containers:
-      - name: my-nginx
-        image: nginx
+      - name: linux-webserver
+        image: docker.io/sgaoshang/httpd
         ports:
         - containerPort: 80
