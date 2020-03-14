@@ -1,3 +1,4 @@
 sut:
     build: .
+    # Since started service with ENTRYPOINT, dockerhub autotest failed.
     command: curl 127.0.0.1
