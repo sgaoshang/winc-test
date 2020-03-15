@@ -1,4 +1,4 @@
 sut:
     build: .
     # Started service with ENTRYPOINT, dockerhub autotest may fail
-    command: exec /usr/sbin/apachectl -DFOREGROUND; curl 127.0.0.1
+    command: /run-httpd.sh; curl 127.0.0.1
