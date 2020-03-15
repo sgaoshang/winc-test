@@ -8,4 +8,5 @@ RUN yum -y --setopt=tsflags=nodocs update && \
 RUN echo "Linux Container Web Server" > /var/www/html/index.html
 EXPOSE 80
 # ENTRYPOINT ["/usr/sbin/apachectl","-DFOREGROUND"]
-ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
+# ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
+CMD ["/run-httpd.sh"]
