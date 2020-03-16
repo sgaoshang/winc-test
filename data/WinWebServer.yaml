@@ -38,10 +38,16 @@ spec:
         image: mcr.microsoft.com/windows/servercore:ltsc2019
         imagePullPolicy: IfNotPresent
         # ---
-        # NOTE: Use privileged security context in none default project, need to add-scc-to-user, e.g.
-        # oc adm policy add-scc-to-user privileged system:serviceaccount:sgao:default
+        # NOTE: 2 methods to create windows pod in a new project
+        # 1. Disabled SCC in that namespace by label
+        # e.g.
+        # oc label namespace <project_name> "openshift.io/run-level=1"
+        #
+        # 2. Use privileged security context
+        # e.g.
+        # oc adm policy add-scc-to-user privileged system:serviceaccount:<project_name>:default
         # oc get scc privileged -o yaml
-        # ---
+        # And add following section to pod spec in yaml
         # securityContext:
         #   privileged: true
         command:
