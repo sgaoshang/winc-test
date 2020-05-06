@@ -1,7 +1,7 @@
 [win]
 # Address of a node and its Windows password
 # <node_ip> ansible_password=<password>
-52.14.55.110 ansible_password='fGF!P@gg7VzFB$fQTr=.(mwyZtTpdc(G'
+52.14.55.110 ansible_password='fGF!P@gg7VzFB$fQTr=.(mwyZtTpdc(G' private_ip=10.0.37.34
 
 [win:vars]
 # Windows username, typically 'Administrator'
