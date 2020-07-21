@@ -1,24 +1,31 @@
+### Run following command to replace parameters
+# infrastructure_id=`oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster`
+# account_id=`aws sts get-caller-identity --query 'Account' --output text`
+# subnet_id=`aws ec2 describe-subnets --filters "Name=tag:Name,Values=$infrastructure_id-private-us-east-2a" --subnet-ids | jq -r ".Subnets[0].SubnetId"`
+# security_group_id=`aws ec2 describe-security-groups --filter "Name=tag:Name, Values=$infrastructure_id-worker-sg" | jq -r ".SecurityGroups[0].GroupId"`
+# sed -i -e "s/<account_id>/$account_id/g" -e "s/<infrastructure_id>/$infrastructure_id/g" -e "s/<security_group_id>/$security_group_id/g" -e "s/<subnet_id>/$subnet_id/g" WindowsMachineSet.yaml
+###
 apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
 metadata:
   labels:
-    machine.openshift.io/cluster-api-cluster: sgao-lvrtg
-  name:  windows-machineset-without-label
+    machine.openshift.io/cluster-api-cluster: <infrastructure_id>
+  name: windows-machineset-without-label
   namespace: openshift-machine-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      machine.openshift.io/cluster-api-cluster: sgao-lvrtg
-      machine.openshift.io/cluster-api-machineset:  windows-machineset-without-label-us-east-2a
+      machine.openshift.io/cluster-api-cluster: <infrastructure_id>
+      machine.openshift.io/cluster-api-machineset: windows-machineset-without-label-us-east-2a
 
   template:
     metadata:
       labels:
-        machine.openshift.io/cluster-api-cluster: sgao-lvrtg
+        machine.openshift.io/cluster-api-cluster: <infrastructure_id>
         machine.openshift.io/cluster-api-machine-role: worker
         machine.openshift.io/cluster-api-machine-type: worker
-        machine.openshift.io/cluster-api-machineset:  windows-machineset-without-label-us-east-2a
+        machine.openshift.io/cluster-api-machineset: windows-machineset-without-label-us-east-2a
 
     spec:
       metadata: {}
@@ -30,14 +37,14 @@ spec:
             name: aws-cloud-credentials
           deviceIndex: 0
           iamInstanceProfile:
-            arn: arn:aws:iam::301721915996:instance-profile/sgao-lvrtg-worker-profile
+            arn: arn:aws:iam::<account_id>:instance-profile/<infrastructure_id>-worker-profile
           instanceType: m5a.large
           placement:
             availabilityZone: us-east-2a
             region: us-east-2
           securityGroups:
-          - id: sg-0a9d8cf0ed9f1d786
+          - id: <security_group_id>
           subnet:
-            id: subnet-03741d379d329217b
+            id: <subnet_id>
           userDataSecret:
             name: worker-user-data
