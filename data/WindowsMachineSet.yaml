@@ -1,50 +1,67 @@
 ### Run following command to replace parameters
-# infrastructure_id=`oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster`
-# account_id=`aws sts get-caller-identity --query 'Account' --output text`
-# subnet_id=`aws ec2 describe-subnets --filters "Name=tag:Name,Values=$infrastructure_id-private-us-east-2a" --subnet-ids | jq -r ".Subnets[0].SubnetId"`
-# security_group_id=`aws ec2 describe-security-groups --filter "Name=tag:Name, Values=$infrastructure_id-worker-sg" | jq -r ".SecurityGroups[0].GroupId"`
-# sed -i -e "s/<account_id>/$account_id/g" -e "s/<infrastructure_id>/$infrastructure_id/g" -e "s/<security_group_id>/$security_group_id/g" -e "s/<subnet_id>/$subnet_id/g" WindowsMachineSet.yaml
-###
+# infrastructureID=`oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster`
+# region=`oc get -o jsonpath='{.status.platformStatus.aws.region}{"\n"}' infrastructure cluster`
+# role=worker
+# zone=us-east-2a
+# windows_image_with_container_runtime_installed=ami-0c7a9c9d17f8a5b64
+# sed -i -e "s/<infrastructureID>/$infrastructureID/g" -e "s/<role>/$role/g" -e "s/<zone>/$zone/g" -e "s/<region>/$region/g" -e "s/<windows_image_with_container_runtime_installed>/$windows_image_with_container_runtime_installed/g" WindowsMachineSet.yaml
 apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
 metadata:
   labels:
-    machine.openshift.io/cluster-api-cluster: <infrastructure_id>
-  name: windows-machineset
+    machine.openshift.io/cluster-api-cluster: <infrastructureID>
+  name: <infrastructureID>-windows-without-label-<role>-<zone>
   namespace: openshift-machine-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      machine.openshift.io/cluster-api-cluster: <infrastructure_id>
-      machine.openshift.io/cluster-api-machineset: windows-machineset-us-east-2a
-      machine.openshift.io/os-id: Windows
+      machine.openshift.io/cluster-api-cluster: <infrastructureID>
+      machine.openshift.io/cluster-api-machineset: <infrastructureID>-<role>-<zone>
   template:
     metadata:
       labels:
-        machine.openshift.io/cluster-api-cluster: <infrastructure_id>
-        machine.openshift.io/cluster-api-machine-role: worker
-        machine.openshift.io/cluster-api-machine-type: worker
-        machine.openshift.io/cluster-api-machineset: windows-machineset-us-east-2a
+        machine.openshift.io/cluster-api-cluster: <infrastructureID>
+        machine.openshift.io/cluster-api-machine-role: <role>
+        machine.openshift.io/cluster-api-machine-type: <role>
+        machine.openshift.io/cluster-api-machineset: <infrastructureID>-<role>-<zone>
         machine.openshift.io/os-id: Windows
     spec:
-      metadata: {}
+      metadata:
+        labels:
+          node-role.kubernetes.io/<role>: ""
       providerSpec:
         value:
           ami:
-            id: ami-0c7a9c9d17f8a5b64
+            id: <windows_image_with_container_runtime_installed>
+          apiVersion: awsproviderconfig.openshift.io/v1beta1
+          blockDevices:
+            - ebs:
+                iops: 0
+                volumeSize: 120
+                volumeType: gp2
           credentialsSecret:
             name: aws-cloud-credentials
           deviceIndex: 0
           iamInstanceProfile:
-            arn: arn:aws:iam::<account_id>:instance-profile/<infrastructure_id>-worker-profile
+            id: <infrastructureID>-worker-profile
           instanceType: m5a.large
+          kind: AWSMachineProviderConfig
           placement:
-            availabilityZone: us-east-2a
-            region: us-east-2
+            availabilityZone: <zone>
+            region: <region>
           securityGroups:
-          - id: <security_group_id>
+            - filters:
+                - name: tag:Name
+                  values:
+                    - <infrastructureID>-worker-sg
           subnet:
-            id: <subnet_id>
+            filters:
+              - name: tag:Name
+                values:
+                  - <infrastructureID>-private-<zone>
+          tags:
+            - name: kubernetes.io/cluster/<infrastructureID>
+              value: owned
           userDataSecret:
-            name: worker-user-data
+            name: windows-user-data
