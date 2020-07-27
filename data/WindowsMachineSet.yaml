@@ -10,7 +10,7 @@ kind: MachineSet
 metadata:
   labels:
     machine.openshift.io/cluster-api-cluster: <infrastructureID>
-  name: <infrastructureID>-windows-without-label-<role>-<zone>
+  name: <infrastructureID>-windows-<role>-<zone>
   namespace: openshift-machine-api
 spec:
   replicas: 1

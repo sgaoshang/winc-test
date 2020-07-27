@@ -4,27 +4,27 @@
 # role=worker
 # zone=us-east-2a
 # windows_image_with_container_runtime_installed=ami-0c7a9c9d17f8a5b64
-# sed -i -e "s/<infrastructureID>/$infrastructureID/g" -e "s/<role>/$role/g" -e "s/<zone>/$zone/g" -e "s/<region>/$region/g" -e "s/<windows_image_with_container_runtime_installed>/$windows_image_with_container_runtime_installed/g" WindowsMachineSet.yaml
+# sed -i -e "s/<infrastructureID>/$infrastructureID/g" -e "s/<role>/$role/g" -e "s/<zone>/$zone/g" -e "s/<region>/$region/g" -e "s/<windows_image_with_container_runtime_installed>/$windows_image_with_container_runtime_installed/g" WindowsMachineSetWithoutLabel.yaml
 apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
 metadata:
   labels:
     machine.openshift.io/cluster-api-cluster: <infrastructureID>
-  name: <infrastructureID>-windows-<role>-<zone>
+  name: <infrastructureID>-windows-without-label-<role>-<zone>
   namespace: openshift-machine-api
 spec:
   replicas: 1
   selector:
     matchLabels:
       machine.openshift.io/cluster-api-cluster: <infrastructureID>
-      machine.openshift.io/cluster-api-machineset: <infrastructureID>-<role>-<zone>
+      machine.openshift.io/cluster-api-machineset: <infrastructureID>-windows-without-label-<role>-<zone>
   template:
     metadata:
       labels:
         machine.openshift.io/cluster-api-cluster: <infrastructureID>
         machine.openshift.io/cluster-api-machine-role: <role>
         machine.openshift.io/cluster-api-machine-type: <role>
-        machine.openshift.io/cluster-api-machineset: <infrastructureID>-<role>-<zone>
+        machine.openshift.io/cluster-api-machineset: <infrastructureID>-windows-without-label-<role>-<zone>
 
     spec:
       metadata:
