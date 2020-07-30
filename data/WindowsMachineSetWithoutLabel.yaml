@@ -63,5 +63,3 @@ spec:
           tags:
             - name: kubernetes.io/cluster/<infrastructureID>
               value: owned
-          userDataSecret:
-            name: windows-user-data
