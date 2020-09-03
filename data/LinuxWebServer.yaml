@@ -6,7 +6,7 @@ metadata:
     run: linux-webserver
 spec:
   ports:
-  - port: 80
+  - port: 8080
     protocol: TCP
   selector:
     run: linux-webserver
@@ -27,6 +27,6 @@ spec:
     spec:
       containers:
       - name: linux-webserver
-        image: docker.io/sgaoshang/httpd
+        image: quay.io/sgaoshang/python-sample-app
         ports:
-        - containerPort: 80
+        - containerPort: 8080
