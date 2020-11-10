@@ -1,0 +1,91 @@
+------------------------------- Create Windows MachineSet -------------------------------
+2020-11-10T09:55:43.388Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T09:55:43.402Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-fcfjd-windows-worker-us-east-2a-n7f9x", "error": "could not get the phase associated with machine sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-10T09:55:43.402Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T09:55:43.421Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-fcfjd-windows-worker-us-east-2a-n7f9x", "error": "could not get the phase associated with machine sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-10T09:55:44.421Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T09:55:45.248Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T09:55:45.275Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T09:55:45.283Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T09:56:05.543Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T09:56:05.554Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T09:56:05.565Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T10:06:55.496Z	INFO	windowsmachine-controller	Windows VM has joined the cluster as a worker node	{"ID": "i-07fe4b18c64f4f50a"}
+2020-11-10T10:06:55.496Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+
+------------------------------- Scale up Windows MachineSet -------------------------------
+2020-11-10T10:17:54.178Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:17:54.190Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-fcfjd-windows-worker-us-east-2a-z4n7z", "error": "could not get the phase associated with machine sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-10T10:17:55.190Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:17:55.960Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:17:55.971Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:17:55.979Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:18:16.282Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:18:16.294Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:18:16.302Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:29:21.866Z	INFO	windowsmachine-controller	Windows VM has joined the cluster as a worker node	{"ID": "i-0ddf0e3b5bbb10141"}
+2020-11-10T10:29:21.866Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+
+------------------------------- Scale down Windows MachineSet -------------------------------
+2020-11-10T10:32:31.428Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:32:31.441Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:32:31.785Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:32:31.796Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:33:13.157Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+2020-11-10T10:33:13.171Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+
+------------------------------- Delete Windows MachineSet -------------------------------
+2020-11-10T10:34:56.366Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T10:34:56.381Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T10:34:58.766Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T10:34:58.788Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T10:35:48.182Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-10T10:35:48.199Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
