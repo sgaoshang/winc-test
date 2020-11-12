@@ -1,0 +1,251 @@
+# oc logs -f deployment.apps/windows-machine-config-operator
+2020-11-12T06:28:08.701Z	INFO	version	operator	{"version": "0.0.1+"}
+2020-11-12T06:28:08.701Z	INFO	version	go	{"version": "go1.15.2 linux/amd64"}
+2020-11-12T06:28:08.701Z	INFO	version	operator-sdk	{"version": "v0.19.4"}
+2020-11-12T06:28:08.718Z	INFO	leader	Trying to become the leader.
+I1112 06:28:09.769384       1 request.go:621] Throttling request took 1.04218146s, request: GET:https://172.30.0.1:443/apis/coordination.k8s.io/v1beta1?timeout=32s
+2020-11-12T06:28:11.136Z	INFO	leader	Found existing lock	{"LockOwner": "windows-machine-config-operator-c99c6f9cd-7g9pz"}
+2020-11-12T06:28:11.157Z	INFO	leader	Not the leader. Waiting.
+2020-11-12T06:28:12.296Z	INFO	leader	Not the leader. Waiting.
+2020-11-12T06:28:14.689Z	INFO	leader	Not the leader. Waiting.
+2020-11-12T06:28:19.231Z	INFO	leader	Became the leader.
+I1112 06:28:20.282059       1 request.go:621] Throttling request took 1.04534485s, request: GET:https://172.30.0.1:443/apis/user.openshift.io/v1?timeout=32s
+2020-11-12T06:28:21.637Z	INFO	controller-runtime.metrics	metrics server is starting to listen	{"addr": "0.0.0.0:8383"}
+2020-11-12T06:28:21.638Z	INFO	cmd	registering Components.
+2020-11-12T06:28:24.041Z	ERROR	secret_controller	Unable to retrieve private key, please ensure it is created	{"error": "the cache is not started, can not read objects"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+github.com/openshift/windows-machine-config-operator/pkg/controller/secret.add
+	/remote-source/app/pkg/controller/secret/secret_controller.go:72
+github.com/openshift/windows-machine-config-operator/pkg/controller/secret.Add
+	/remote-source/app/pkg/controller/secret/secret_controller.go:42
+github.com/openshift/windows-machine-config-operator/pkg/controller.AddToManager
+	/remote-source/app/pkg/controller/controller.go:14
+main.main
+	/remote-source/app/cmd/manager/main.go:177
+runtime.main
+	/usr/lib/golang/src/runtime/proc.go:204
+I1112 06:28:30.300610       1 request.go:621] Throttling request took 1.447524002s, request: GET:https://172.30.0.1:443/apis/coordination.k8s.io/v1beta1?timeout=32s
+2020-11-12T06:28:33.715Z	INFO	metrics	Metrics Service object updated	{"Service.Name": "windows-machine-config-operator-metrics", "Service.Namespace": "openshift-windows-machine-config-operator"}
+2020-11-12T06:28:36.144Z	INFO	cmd	could not create ServiceMonitor object	{"error": "servicemonitors.monitoring.coreos.com \"windows-machine-config-operator-metrics\" already exists"}
+2020-11-12T06:28:36.144Z	INFO	cmd	starting the Cmd.
+2020-11-12T06:28:36.244Z	INFO	controller-runtime.manager	starting metrics server	{"path": "/metrics"}
+2020-11-12T06:28:36.244Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "secret_controller", "source": "kind source: /, Kind="}
+2020-11-12T06:28:36.244Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "windowsmachine-controller", "source": "kind source: /, Kind="}
+2020-11-12T06:28:36.546Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "windowsmachine-controller", "source": "kind source: /, Kind="}
+2020-11-12T06:28:36.848Z	INFO	controller-runtime.controller	Starting Controller	{"controller": "windowsmachine-controller"}
+2020-11-12T06:28:36.946Z	INFO	controller-runtime.controller	Starting Controller	{"controller": "secret_controller"}
+2020-11-12T06:28:36.946Z	INFO	controller-runtime.controller	Starting workers	{"controller": "secret_controller", "worker count": 1}
+2020-11-12T06:28:36.950Z	INFO	controller-runtime.controller	Starting workers	{"controller": "windowsmachine-controller", "worker count": 1}
+2020-11-12T06:29:06.629Z	INFO	secret_controller	secret not found, creating the secret	{"namespace": "openshift-windows-machine-config-operator", "name": "cloud-private-key", "name": "windows-user-data"}
+
+=============================== Create Windows MachineSet # oc apply -f MachineSet.yaml ===============================
+2020-11-12T06:29:20.426Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-pskdg-windows-worker-us-east-2a-49mc2", "error": "could not get the phase associated with machine sgao-pskdg-windows-worker-us-east-2a-49mc2"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-12T06:29:20.438Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-pskdg-windows-worker-us-east-2a-49mc2", "error": "could not get the phase associated with machine sgao-pskdg-windows-worker-us-east-2a-49mc2"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-12T06:29:42.612Z	INFO	windowsmachine-controller	processing	{"namespace": "openshift-machine-api", "name": "sgao-pskdg-windows-worker-us-east-2a-49mc2"}
+2020-11-12T06:36:31.114Z	INFO	VM i-0795839b9731238f3	configuring
+2020-11-12T06:36:31.339Z	INFO	VM i-0795839b9731238f3	transferring files
+2020-11-12T06:37:29.008Z	INFO	VM i-0795839b9731238f3	configured kubelet	{"cmd": "C:\\k\\\\wmcb.exe initialize-kubelet --ignition-file C:\\Windows\\Temp\\worker.ign --kubelet-path C:\\k\\kubelet.exe", "output": "Bootstrapping completed successfully"}
+2020-11-12T06:37:59.025Z	INFO	VM i-0795839b9731238f3	configure	{"service": "hybrid-overlay-node", "args": "--node ip-10-0-147-239.us-east-2.compute.internal --k8s-kubeconfig c:\\k\\kubeconfig --windows-service --logfile C:\\var\\log\\hybrid-overlay\\hybrid-overlay.log\" depend= kubelet"}
+2020-11-12T06:37:59.190Z	ERROR	VM i-0795839b9731238f3	error running	{"cmd": "sc.exe qc hybrid-overlay-node", "out": "[SC] OpenService FAILED 1060:\r\n\r\nThe specified service does not exist as an installed service.\r\n\r\n", "error": "Process exited with status 1060"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).Run
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:166
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).serviceExists
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:412
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).ensureServiceIsRunning
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:369
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).ConfigureHybridOverlay
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:207
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/nodeconfig.(*nodeConfig).configureNetwork
+	/remote-source/app/pkg/controller/windowsmachine/nodeconfig/nodeconfig.go:177
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/nodeconfig.(*nodeConfig).Configure
+	/remote-source/app/pkg/controller/windowsmachine/nodeconfig/nodeconfig.go:143
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine.(*ReconcileWindowsMachine).addWorkerNode
+	/remote-source/app/pkg/controller/windowsmachine/windowsmachine_controller.go:389
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine.(*ReconcileWindowsMachine).Reconcile
+	/remote-source/app/pkg/controller/windowsmachine/windowsmachine_controller.go:371
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-12T06:40:03.259Z	INFO	VM i-0795839b9731238f3	configured	{"service": "hybrid-overlay-node", "args": "--node ip-10-0-147-239.us-east-2.compute.internal --k8s-kubeconfig c:\\k\\kubeconfig --windows-service --logfile C:\\var\\log\\hybrid-overlay\\hybrid-overlay.log\" depend= kubelet"}
+2020-11-12T06:40:22.713Z	INFO	VM i-0795839b9731238f3	configured kubelet for CNI	{"cmd": "C:\\k\\wmcb.exe configure-cni --cni-dir=\"C:\\k\\cni\\ --cni-config=\"C:\\k\\cni\\config\\cni.conf", "output": "CNI configuration completed successfully"}
+2020-11-12T06:40:35.428Z	ERROR	VM i-0795839b9731238f3	error running	{"cmd": "sc.exe qc kube-proxy", "out": "[SC] OpenService FAILED 1060:\r\n\r\nThe specified service does not exist as an installed service.\r\n\r\n", "error": "Process exited with status 1060"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).Run
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:166
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).serviceExists
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:412
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).ensureServiceIsRunning
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:369
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).ConfigureKubeProxy
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:272
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/nodeconfig.(*nodeConfig).configureNetwork
+	/remote-source/app/pkg/controller/windowsmachine/nodeconfig/nodeconfig.go:193
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/nodeconfig.(*nodeConfig).Configure
+	/remote-source/app/pkg/controller/windowsmachine/nodeconfig/nodeconfig.go:143
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine.(*ReconcileWindowsMachine).addWorkerNode
+	/remote-source/app/pkg/controller/windowsmachine/windowsmachine_controller.go:389
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine.(*ReconcileWindowsMachine).Reconcile
+	/remote-source/app/pkg/controller/windowsmachine/windowsmachine_controller.go:371
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-12T06:40:35.947Z	INFO	VM i-0795839b9731238f3	configured	{"service": "kube-proxy", "args": "--windows-service --v=4 --proxy-mode=kernelspace --feature-gates=WinOverlay=true --hostname-override=ip-10-0-147-239.us-east-2.compute.internal --kubeconfig=c:\\k\\kubeconfig --cluster-cidr=10.132.1.0/24 --log-dir=C:\\var\\log\\kube-proxy\\ --logtostderr=false --network-name=OVNKubernetesHybridOverlayNetwork --source-vip=10.132.1.33 --enable-dsr=false\" depend= hybrid-overlay-node"}
+2020-11-12T06:40:50.966Z	INFO	windowsmachine-controller	Windows VM has been configured as a worker node	{"ID": "i-0795839b9731238f3"}
+2020-11-12T06:40:50.984Z	INFO	windowsmachine-controller	machine has current version	{"name": "sgao-pskdg-windows-worker-us-east-2a-49mc2", "version": "0.0.1+"}
+
+=============================== Scale up Windows MachineSet # oc scale --replicas=2 ===============================
+2020-11-12T06:52:43.515Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-pskdg-windows-worker-us-east-2a-lcn6l", "error": "could not get the phase associated with machine sgao-pskdg-windows-worker-us-east-2a-lcn6l"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-12T06:53:05.751Z	INFO	windowsmachine-controller	processing	{"namespace": "openshift-machine-api", "name": "sgao-pskdg-windows-worker-us-east-2a-lcn6l"}
+2020-11-12T06:59:24.374Z	INFO	VM i-0d749a955fa45508c	configuring
+2020-11-12T06:59:24.645Z	INFO	VM i-0d749a955fa45508c	transferring files
+2020-11-12T07:00:18.083Z	INFO	VM i-0d749a955fa45508c	configured kubelet	{"cmd": "C:\\k\\\\wmcb.exe initialize-kubelet --ignition-file C:\\Windows\\Temp\\worker.ign --kubelet-path C:\\k\\kubelet.exe", "output": "Bootstrapping completed successfully"}
+2020-11-12T07:00:48.096Z	INFO	VM i-0d749a955fa45508c	configure	{"service": "hybrid-overlay-node", "args": "--node ip-10-0-159-102.us-east-2.compute.internal --k8s-kubeconfig c:\\k\\kubeconfig --windows-service --logfile C:\\var\\log\\hybrid-overlay\\hybrid-overlay.log\" depend= kubelet"}
+2020-11-12T07:00:48.122Z	ERROR	VM i-0d749a955fa45508c	error running	{"cmd": "sc.exe qc hybrid-overlay-node", "out": "[SC] OpenService FAILED 1060:\r\n\r\nThe specified service does not exist as an installed service.\r\n\r\n", "error": "Process exited with status 1060"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).Run
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:166
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).serviceExists
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:412
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).ensureServiceIsRunning
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:369
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).ConfigureHybridOverlay
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:207
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/nodeconfig.(*nodeConfig).configureNetwork
+	/remote-source/app/pkg/controller/windowsmachine/nodeconfig/nodeconfig.go:177
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/nodeconfig.(*nodeConfig).Configure
+	/remote-source/app/pkg/controller/windowsmachine/nodeconfig/nodeconfig.go:143
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine.(*ReconcileWindowsMachine).addWorkerNode
+	/remote-source/app/pkg/controller/windowsmachine/windowsmachine_controller.go:389
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine.(*ReconcileWindowsMachine).Reconcile
+	/remote-source/app/pkg/controller/windowsmachine/windowsmachine_controller.go:371
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-12T07:02:52.178Z	INFO	VM i-0d749a955fa45508c	configured	{"service": "hybrid-overlay-node", "args": "--node ip-10-0-159-102.us-east-2.compute.internal --k8s-kubeconfig c:\\k\\kubeconfig --windows-service --logfile C:\\var\\log\\hybrid-overlay\\hybrid-overlay.log\" depend= kubelet"}
+2020-11-12T07:03:11.334Z	INFO	VM i-0d749a955fa45508c	configured kubelet for CNI	{"cmd": "C:\\k\\wmcb.exe configure-cni --cni-dir=\"C:\\k\\cni\\ --cni-config=\"C:\\k\\cni\\config\\cni.conf", "output": "CNI configuration completed successfully"}
+2020-11-12T07:03:22.584Z	ERROR	VM i-0d749a955fa45508c	error running	{"cmd": "sc.exe qc kube-proxy", "out": "[SC] OpenService FAILED 1060:\r\n\r\nThe specified service does not exist as an installed service.\r\n\r\n", "error": "Process exited with status 1060"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).Run
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:166
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).serviceExists
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:412
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).ensureServiceIsRunning
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:369
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/windows.(*windows).ConfigureKubeProxy
+	/remote-source/app/pkg/controller/windowsmachine/windows/windows.go:272
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/nodeconfig.(*nodeConfig).configureNetwork
+	/remote-source/app/pkg/controller/windowsmachine/nodeconfig/nodeconfig.go:193
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine/nodeconfig.(*nodeConfig).Configure
+	/remote-source/app/pkg/controller/windowsmachine/nodeconfig/nodeconfig.go:143
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine.(*ReconcileWindowsMachine).addWorkerNode
+	/remote-source/app/pkg/controller/windowsmachine/windowsmachine_controller.go:389
+github.com/openshift/windows-machine-config-operator/pkg/controller/windowsmachine.(*ReconcileWindowsMachine).Reconcile
+	/remote-source/app/pkg/controller/windowsmachine/windowsmachine_controller.go:371
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:256
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-12T07:03:22.846Z	INFO	VM i-0d749a955fa45508c	configured	{"service": "kube-proxy", "args": "--windows-service --v=4 --proxy-mode=kernelspace --feature-gates=WinOverlay=true --hostname-override=ip-10-0-159-102.us-east-2.compute.internal --kubeconfig=c:\\k\\kubeconfig --cluster-cidr=10.132.2.0/24 --log-dir=C:\\var\\log\\kube-proxy\\ --logtostderr=false --network-name=OVNKubernetesHybridOverlayNetwork --source-vip=10.132.2.112 --enable-dsr=false\" depend= hybrid-overlay-node"}
+2020-11-12T07:03:37.868Z	INFO	windowsmachine-controller	Windows VM has been configured as a worker node	{"ID": "i-0d749a955fa45508c"}
+2020-11-12T07:03:37.886Z	INFO	windowsmachine-controller	machine has current version	{"name": "sgao-pskdg-windows-worker-us-east-2a-lcn6l", "version": "0.0.1+"}
+
+=============================== Scale down Windows MachineSet # oc scale --replicas=1 ===============================
+
+=============================== Delete Windows MachineSet # oc delete machineset ===============================
