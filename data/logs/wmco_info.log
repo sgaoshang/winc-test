@@ -1,91 +1,143 @@
-------------------------------- Create Windows MachineSet -------------------------------
-2020-11-10T09:55:43.388Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T09:55:43.402Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-fcfjd-windows-worker-us-east-2a-n7f9x", "error": "could not get the phase associated with machine sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+# oc logs -f deployment.apps/windows-machine-config-operator -n openshift-windows-machine-config-operator
+2020-11-26T05:24:39.143Z	INFO	version	operator	{"version": "0.0.1+29e8c0f-dirty"}
+2020-11-26T05:24:39.143Z	INFO	version	go	{"version": "go1.14.7 linux/amd64"}
+2020-11-26T05:24:39.143Z	INFO	version	operator-sdk	{"version": "v0.19.4"}
+2020-11-26T05:24:39.166Z	INFO	leader	Trying to become the leader.
+I1126 05:24:40.218087       1 request.go:621] Throttling request took 1.044265016s, request: GET:https://172.30.0.1:443/apis/packages.operators.coreos.com/v1?timeout=32s
+2020-11-26T05:24:41.589Z	INFO	leader	No pre-existing lock was found.
+2020-11-26T05:24:41.601Z	INFO	leader	Became the leader.
+2020-11-26T05:24:44.009Z	INFO	controller-runtime.metrics	metrics server is starting to listen	{"addr": "0.0.0.0:9182"}
+2020-11-26T05:24:44.009Z	INFO	cmd	registering Components.
+2020-11-26T05:24:46.415Z	ERROR	secret_controller	Unable to retrieve private key, please ensure it is created	{"error": "the cache is not started, can not read objects"}
 github.com/go-logr/zapr.(*zapLogger).Error
-	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
-sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
-sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
-sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
-k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
-k8s.io/apimachinery/pkg/util/wait.BackoffUntil
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
-k8s.io/apimachinery/pkg/util/wait.JitterUntil
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
-k8s.io/apimachinery/pkg/util/wait.Until
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
-2020-11-10T09:55:43.402Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T09:55:43.421Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-fcfjd-windows-worker-us-east-2a-n7f9x", "error": "could not get the phase associated with machine sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+	windows-machine-config-operator/vendor/github.com/go-logr/zapr/zapr.go:132
+github.com/openshift/windows-machine-config-operator/pkg/controller/secret.add
+	windows-machine-config-operator/pkg/controller/secret/secret_controller.go:72
+github.com/openshift/windows-machine-config-operator/pkg/controller/secret.Add
+	windows-machine-config-operator/pkg/controller/secret/secret_controller.go:42
+github.com/openshift/windows-machine-config-operator/pkg/controller.AddToManager
+	windows-machine-config-operator/pkg/controller/controller.go:14
+main.main
+	windows-machine-config-operator/cmd/manager/main.go:170
+runtime.main
+	/usr/local/go/src/runtime/proc.go:203
+I1126 05:24:50.221127       1 request.go:621] Throttling request took 1.384642724s, request: GET:https://172.30.0.1:443/apis/apiextensions.k8s.io/v1?timeout=32s
+2020-11-26T05:24:51.269Z	INFO	metrics	Metrics Service object created	{"Service.Name": "windows-machine-config-operator-metrics", "Service.Namespace": "openshift-windows-machine-config-operator"}
+2020-11-26T05:24:53.716Z	INFO	cmd	starting the Cmd.
+2020-11-26T05:24:53.816Z	INFO	controller-runtime.manager	starting metrics server	{"path": "/metrics"}
+2020-11-26T05:24:53.817Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "windowsmachine-controller", "source": "kind source: /, Kind="}
+2020-11-26T05:24:53.817Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "secret_controller", "source": "kind source: /, Kind="}
+2020-11-26T05:24:54.118Z	INFO	controller-runtime.controller	Starting EventSource	{"controller": "windowsmachine-controller", "source": "kind source: /, Kind="}
+2020-11-26T05:24:54.421Z	INFO	controller-runtime.controller	Starting Controller	{"controller": "windowsmachine-controller"}
+2020-11-26T05:24:54.719Z	INFO	controller-runtime.controller	Starting Controller	{"controller": "secret_controller"}
+2020-11-26T05:24:54.719Z	INFO	controller-runtime.controller	Starting workers	{"controller": "secret_controller", "worker count": 1}
+2020-11-26T05:24:54.722Z	INFO	controller-runtime.controller	Starting workers	{"controller": "windowsmachine-controller", "worker count": 1}
+
+=============================== Create Windows MachineSet # oc apply -f MachineSet.yaml ===============================
+
+2020-11-26T05:36:52.596Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/winworker-fdlf8", "error": "could not get the phase associated with machine winworker-fdlf8"}
 github.com/go-logr/zapr.(*zapLogger).Error
-	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+	windows-machine-config-operator/vendor/github.com/go-logr/zapr/zapr.go:132
 sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
 sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
 sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
 k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
 k8s.io/apimachinery/pkg/util/wait.BackoffUntil
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
 k8s.io/apimachinery/pkg/util/wait.JitterUntil
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
 k8s.io/apimachinery/pkg/util/wait.Until
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
-2020-11-10T09:55:44.421Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T09:55:45.248Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T09:55:45.275Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T09:55:45.283Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T09:56:05.543Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T09:56:05.554Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T09:56:05.565Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T10:06:55.496Z	INFO	windowsmachine-controller	Windows VM has joined the cluster as a worker node	{"ID": "i-07fe4b18c64f4f50a"}
-2020-11-10T10:06:55.496Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-
-------------------------------- Scale up Windows MachineSet -------------------------------
-2020-11-10T10:17:54.178Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:17:54.190Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/sgao-fcfjd-windows-worker-us-east-2a-z4n7z", "error": "could not get the phase associated with machine sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-26T05:36:52.608Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/winworker-fdlf8", "error": "could not get the phase associated with machine winworker-fdlf8"}
 github.com/go-logr/zapr.(*zapLogger).Error
-	/remote-source/app/vendor/github.com/go-logr/zapr/zapr.go:132
+	windows-machine-config-operator/vendor/github.com/go-logr/zapr/zapr.go:132
 sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
 sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
 sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
-	/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
 k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
 k8s.io/apimachinery/pkg/util/wait.BackoffUntil
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
 k8s.io/apimachinery/pkg/util/wait.JitterUntil
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
 k8s.io/apimachinery/pkg/util/wait.Until
-	/remote-source/app/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
-2020-11-10T10:17:55.190Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:17:55.960Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:17:55.971Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:17:55.979Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:18:16.282Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:18:16.294Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:18:16.302Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:29:21.866Z	INFO	windowsmachine-controller	Windows VM has joined the cluster as a worker node	{"ID": "i-0ddf0e3b5bbb10141"}
-2020-11-10T10:29:21.866Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-26T05:36:53.650Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T05:36:54.716Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T05:36:54.750Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T05:36:55.213Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T05:36:55.242Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T05:36:55.747Z	INFO	windowsmachine-controller	processing	{"namespace": "openshift-machine-api", "name": "winworker-fdlf8"}
+2020-11-26T05:40:13.473Z	INFO	VM winworker-fdlf8	configuring
+2020-11-26T05:40:14.302Z	INFO	VM winworker-fdlf8	transferring files
+2020-11-26T05:41:52.159Z	INFO	VM winworker-fdlf8	configured kubelet	{"cmd": "C:\\k\\\\wmcb.exe initialize-kubelet --ignition-file C:\\Windows\\Temp\\worker.ign --kubelet-path C:\\k\\kubelet.exe", "output": "Bootstrapping completed successfully"}
+2020-11-26T05:42:22.177Z	INFO	VM winworker-fdlf8	configure	{"service": "hybrid-overlay-node", "args": "--node winworker-fdlf8 --k8s-kubeconfig c:\\k\\kubeconfig --windows-service --logfile C:\\var\\log\\hybrid-overlay\\hybrid-overlay.log\" depend= kubelet"}
+2020-11-26T05:44:24.299Z	INFO	VM winworker-fdlf8	configured	{"service": "hybrid-overlay-node", "args": "--node winworker-fdlf8 --k8s-kubeconfig c:\\k\\kubeconfig --windows-service --logfile C:\\var\\log\\hybrid-overlay\\hybrid-overlay.log\" depend= kubelet"}
+2020-11-26T05:44:42.774Z	INFO	VM winworker-fdlf8	configured kubelet for CNI	{"cmd": "C:\\k\\wmcb.exe configure-cni --cni-dir=\"C:\\k\\cni\\ --cni-config=\"C:\\k\\cni\\config\\cni.conf", "output": "CNI configuration completed successfully"}
+2020-11-26T05:44:49.755Z	INFO	VM winworker-fdlf8	configured	{"service": "kube-proxy", "args": "--windows-service --v=4 --proxy-mode=kernelspace --feature-gates=WinOverlay=true --hostname-override=winworker-fdlf8 --kubeconfig=c:\\k\\kubeconfig --cluster-cidr=10.132.6.0/24 --log-dir=C:\\var\\log\\kube-proxy\\ --logtostderr=false --network-name=OVNKubernetesHybridOverlayNetwork --source-vip=10.132.6.147 --enable-dsr=false\" depend= hybrid-overlay-node"}
+2020-11-26T05:45:04.780Z	INFO	windowsmachine-controller	Windows VM has been configured as a worker node	{"ID": "winworker-fdlf8"}
+2020-11-26T05:45:04.815Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T05:45:04.842Z	INFO	windowsmachine-controller	machine has current version	{"name": "winworker-fdlf8", "version": "0.0.1+29e8c0f-dirty"}
+2020-11-26T05:45:04.854Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
 
-------------------------------- Scale down Windows MachineSet -------------------------------
-2020-11-10T10:32:31.428Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:32:31.441Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:32:31.785Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:32:31.796Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:33:13.157Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
-2020-11-10T10:33:13.171Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-z4n7z"}
+=============================== Scale up Windows MachineSet # oc scale --replicas=2 ===============================
 
-------------------------------- Delete Windows MachineSet -------------------------------
-2020-11-10T10:34:56.366Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T10:34:56.381Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T10:34:58.766Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T10:34:58.788Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T10:35:48.182Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
-2020-11-10T10:35:48.199Z	INFO	windowsmachine-controller	reconciling	{"namespace": "openshift-machine-api", "name": "sgao-fcfjd-windows-worker-us-east-2a-n7f9x"}
+2020-11-26T06:02:18.674Z	ERROR	controller-runtime.controller	Reconciler error	{"controller": "windowsmachine-controller", "request": "openshift-machine-api/winworker-6hmnl", "error": "could not get the phase associated with machine winworker-6hmnl"}
+github.com/go-logr/zapr.(*zapLogger).Error
+	windows-machine-config-operator/vendor/github.com/go-logr/zapr/zapr.go:132
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:258
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:232
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).worker
+	windows-machine-config-operator/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:211
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil.func1
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:155
+k8s.io/apimachinery/pkg/util/wait.BackoffUntil
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:156
+k8s.io/apimachinery/pkg/util/wait.JitterUntil
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:133
+k8s.io/apimachinery/pkg/util/wait.Until
+	windows-machine-config-operator/vendor/k8s.io/apimachinery/pkg/util/wait/wait.go:90
+2020-11-26T06:02:19.702Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:02:23.803Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:02:23.822Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:02:24.309Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:02:24.335Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:02:24.844Z	INFO	windowsmachine-controller	processing	{"namespace": "openshift-machine-api", "name": "winworker-6hmnl"}
+2020-11-26T06:06:06.464Z	INFO	VM winworker-6hmnl	configuring
+2020-11-26T06:06:07.149Z	INFO	VM winworker-6hmnl	transferring files
+2020-11-26T06:07:21.394Z	INFO	VM winworker-6hmnl	configured kubelet	{"cmd": "C:\\k\\\\wmcb.exe initialize-kubelet --ignition-file C:\\Windows\\Temp\\worker.ign --kubelet-path C:\\k\\kubelet.exe", "output": "Bootstrapping completed successfully"}
+2020-11-26T06:07:51.412Z	INFO	VM winworker-6hmnl	configure	{"service": "hybrid-overlay-node", "args": "--node winworker-6hmnl --k8s-kubeconfig c:\\k\\kubeconfig --windows-service --logfile C:\\var\\log\\hybrid-overlay\\hybrid-overlay.log\" depend= kubelet"}
+2020-11-26T06:09:53.973Z	INFO	VM winworker-6hmnl	configured	{"service": "hybrid-overlay-node", "args": "--node winworker-6hmnl --k8s-kubeconfig c:\\k\\kubeconfig --windows-service --logfile C:\\var\\log\\hybrid-overlay\\hybrid-overlay.log\" depend= kubelet"}
+2020-11-26T06:10:12.591Z	INFO	VM winworker-6hmnl	configured kubelet for CNI	{"cmd": "C:\\k\\wmcb.exe configure-cni --cni-dir=\"C:\\k\\cni\\ --cni-config=\"C:\\k\\cni\\config\\cni.conf", "output": "CNI configuration completed successfully"}
+2020-11-26T06:10:20.562Z	INFO	VM winworker-6hmnl	configured	{"service": "kube-proxy", "args": "--windows-service --v=4 --proxy-mode=kernelspace --feature-gates=WinOverlay=true --hostname-override=winworker-6hmnl --kubeconfig=c:\\k\\kubeconfig --cluster-cidr=10.132.7.0/24 --log-dir=C:\\var\\log\\kube-proxy\\ --logtostderr=false --network-name=OVNKubernetesHybridOverlayNetwork --source-vip=10.132.7.150 --enable-dsr=false\" depend= hybrid-overlay-node"}
+2020-11-26T06:10:35.606Z	INFO	windowsmachine-controller	Windows VM has been configured as a worker node	{"ID": "winworker-6hmnl"}
+2020-11-26T06:10:35.649Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:10:35.668Z	INFO	windowsmachine-controller	machine has current version	{"name": "winworker-6hmnl", "version": "0.0.1+29e8c0f-dirty"}
+2020-11-26T06:10:35.679Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+
+=============================== Scale down Windows MachineSet # oc scale --replicas=1 ===============================
+
+2020-11-26T06:15:55.044Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:15:55.098Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:15:55.480Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:15:55.500Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:16:36.112Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:16:36.141Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+
+=============================== Delete Windows MachineSet # oc delete machineset ===============================
+
+2020-11-26T06:18:00.872Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:18:00.916Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:18:01.309Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:18:01.345Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:18:46.171Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
+2020-11-26T06:18:46.198Z	INFO	metrics	Prometheus configured	{"endpoints": "windows-machine-config-operator-metrics", "port": 9182, "name": "metrics"}
