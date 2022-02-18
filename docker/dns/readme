@@ -1,0 +1,26 @@
+https://medium.com/nagoya-foundation/running-a-dns-server-in-docker-61cc2003e899
+Docker network
+Create an arbitrary network called sgao-net with range 172.20.0.0/16, it will allow us to run containers with static IPs.
+$ docker network create --subnet=172.20.0.0/16 sgao-net //$ docker network rm sgao-net
+
+1, First build the Docker image.
+$ docker build -t bind9 .
+2, Run a container in background, using the same IP as in the db.sgao.com file and the same Docker network created:
+$ docker run -d --rm --name=dns-server --net=sgao-net --ip=172.20.0.2 bind9
+3, Enable the bind9 daemon:
+$ docker exec -d dns-server /etc/init.d/bind9 start
+Now it is possible to run the two hosts using the dns-server container as a DNS server:
+$ docker run -d --rm --name=host1 --net=sgao-net --ip=172.20.0.3 --dns=172.20.0.2 ubuntu:bionic /bin/bash -c "while :; do sleep 10; done"
+$ docker run -d --rm --name=host2 --net=sgao-net --ip=172.20.0.4 --dns=172.20.0.2 ubuntu:bionic /bin/bash -c "while :; do sleep 10; done"
+Inside the container, it is possible to verify that the host2 is reachable from the host1, using the DNS:
+$ docker exec -it host1 bash
+$ apt-get install -y iputils-ping net-tools dnsutils
+The output of the ping command is as follows:
+# ping host2.sgao.com
+PING host2.sgao.com (172.20.0.4) 56(84) bytes of data.
+64 bytes from 172.20.0.4 (172.20.0.4): icmp_seq=1 ttl=64 time=0.044 ms
+64 bytes from 172.20.0.4 (172.20.0.4): icmp_seq=2 ttl=64 time=0.073 ms
+^C
+--- host2.sgao.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1029ms
+rtt min/avg/max/mdev = 0.044/0.058/0.073/0.016 ms

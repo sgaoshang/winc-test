@@ -1,0 +1,4 @@
+zone "sgao.com" {
+    type master;
+    file "/etc/bind/zones/db.sgao.com";
+};
